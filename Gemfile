@@ -32,3 +32,4 @@ end
 
 gem 'bootstrap-generators'
 gem 'annotate'
+gem 'font-awesome-sass'

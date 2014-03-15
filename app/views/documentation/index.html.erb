@@ -1,0 +1,21 @@
+
+
+<% @documents_by_department.each do |k, docs| %>
+  <div class="row">
+    <div class="page-header">
+      <h1><%= k.blank? ? "General" : k.name %></h1>
+    </div>
+
+    <% docs.each do |doc| %>
+      <div class="col-xs-3 document-link">
+        <a href="<%= doc.url %>" target="_blank " class="btn">
+          <%= icon('book') %>  
+          <%= doc.name %>
+        </a>      
+      </div>
+    <% end %>
+
+  </div>
+<% end %>
+
+
