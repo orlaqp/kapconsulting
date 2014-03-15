@@ -12,4 +12,20 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def format_date_time(date, format)
+    if date.blank?
+      "-- not available --"
+    else
+      date.strftime(format)
+    end
+  end
+
+  def humanize_time_distance(start_time, end_time)
+    if start_time.blank? or end_time.blank?
+      "-- not available --"
+    else
+      distance_of_time_in_words(start_time, end_time)
+    end
+  end
+
 end

@@ -1,0 +1,74 @@
+<%= form_for(@intern, :html => { :class => "form-horizontal" }) do |f| %>
+  <% if @intern.errors.any? %>
+    <div class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <h4><%= pluralize(@intern.errors.count, "error") %> prohibited this intern from being saved:</h4>
+
+      <ul>
+      <% @intern.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :first_name, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :first_name, :class => "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :last_name, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :last_name, :class => "form-control" %>
+    </div>
+  </div>
+   <div class="form-group">
+    <%= f.label :term_id, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+       <%= f.collection_select(:term_id, Term.all, :id, :name, {prompt: "-- Select a Term --"}, :class => "form-control" ) %>      
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :department_id, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select(:department_id, Department.all, :id, :name, {prompt: "-- Select a Department --"}, :class => "form-control" ) %>      
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :time_zone_id, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.time_zone_select :time_zone_id, ActiveSupport::TimeZone.us_zones, { default: "Eastern Time (US & Canada)" }, :class => "form-control" %>
+    </div>
+  </div> 
+  <div class="form-group">
+    <%= f.label :position_title, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :position_title, :class => "form-control" %>
+    </div>
+  </div>  
+  <div class="form-group">
+    <%= f.label :phone_number, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :phone_number, :class => "form-control" %>
+    </div>
+  </div>  
+  <div class="form-group">
+    <%= f.label :personal_email, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :personal_email, :class => "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :school_email, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :school_email, :class => "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit :class => "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
