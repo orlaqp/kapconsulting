@@ -54,9 +54,6 @@
         <% end %>
 
         <ul class="nav navbar-nav navbar-right">  
-          <% if can? :manage, Intern %>        
-            <li><%= link_to 'Interns', interns_path %> </li>
-          <% end %>
           <% if can? :manage, Department %>        
             <li><%= link_to 'Departments', departments_path %> </li>
           <% end %>
