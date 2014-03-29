@@ -3,8 +3,16 @@ class TimeClocksController < ApplicationController
   # GET /time_clocks
   # GET /time_clocks.json
   def index
+
+    @filter = Filter.new params[:filter]
     @last_clock_in = TimeClock.get_last_clock_in current_user.id
-    @time_clocks = TimeClock.where("user_id = ?", current_user.id).order('start_time desc')
+
+    if !@filter.start_date.blank? && !@filter.end_date.blank?
+      @time_clocks = TimeClock.where("user_id = ? AND start_time between ? AND ?", 
+        current_user.id, DateTime.parse(@filter.start_date), DateTime.parse(@filter.end_date) + 1).order('start_time desc')
+    else
+      @time_clocks = TimeClock.where("user_id = ?", current_user.id).order('start_time desc')
+    end
   end
 
   # GET /time_clocks/1

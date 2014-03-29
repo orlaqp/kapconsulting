@@ -1,0 +1,105 @@
+
+<%= form_for @filter, :as => "filter", :url => time_sheets_index_path , :method => "get", :html => { :id => 'filter-form' } do |f| %>
+
+<div class="page-header">
+
+   <div class="row">
+
+    <div class="col-xs-5">
+       <div class="form-group">
+          <%= f.label :department_id, :class => "col-sm-3 control-label" %>
+          <div class="col-sm-7">
+            <%= f.collection_select(:department_id, Department.all, :id, :name, {include_blank: "-- All Departments --"}, :class => "form-control", :onchange => ("$('#filter-form').submit()") ) %>      
+          </div>
+        </div>
+    </div>
+    <div class="col-xs-5">
+       <div class="form-group">
+          <%= f.label :employee_id, :class => "col-sm-3 control-label" %>
+          <div class="col-sm-7">
+            <%= f.collection_select(:user_id, @users, :id, :full_name, {include_blank: "-- All Employees --"}, :class => "form-control" ) %>      
+          </div>
+        </div>
+    </div>
+
+  </div>
+
+  <br />
+
+  <div class="row">
+
+    <div class="col-xs-5">
+
+       <div class="form-group">
+          <%= f.label :start_date, "From", :class => "col-sm-3 control-label" %>
+          <div class="col-sm-7">
+            <div class='input-group date datetimepicker'>            
+                <%= f.text_field :start_date, :class => "form-control" %>
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>            
+                </span>
+            </div>            
+          </div>
+        </div>
+    </div>
+    <div class="col-xs-5">
+       <div class="form-group">
+          <%= f.label :end_date, "To", :class => "col-sm-3 control-label" %>
+          <div class="col-sm-7">
+            <div class='input-group date datetimepicker' >            
+                <%= f.text_field :end_date, :class => "form-control" %>
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>            
+                </span>
+            </div>            
+          </div>
+        </div>
+    </div>
+
+    <div class="col-xs-2">
+      <button class="btn btn-primary">Filter</button>
+    </div>
+
+  </div>
+
+</div>
+
+<% end %>
+
+<div class="row">
+  <div class="col-xs-12">
+    <%= link_to 'Add New Entry', time_sheets_add_path, :class => "btn btn-primary"  %>    
+  </div>
+</div>
+
+<br/>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover">
+   
+    <tbody>
+      <%= content_tag_for(:tr, @time_clock_entries) do |time_clock| %>
+            <td><%= time_clock.user.blank? ? "-- N/A --" : time_clock.user.full_name %></td>
+            <td><%= format_date_time(time_clock.start_time, "%A, %b %d ") %></td>
+            <td><%= time_clock.comments %></td>            
+            <td class="text-right text-muted">
+              <strong><%= format_date_time(time_clock.start_time, "%I:%M:%S %p") %></strong>
+            </td>
+            <td class="text-right text-muted">
+              <strong><%= format_date_time(time_clock.end_time, "%I:%M:%S %p") %></strong>
+            </td>
+            <td class="text-success text-right">
+              <strong><%= humanize_time_distance(time_clock.start_time, time_clock.end_time) %></strong>
+            </td> 
+            <td>
+              <%= link_to 'Edit', time_sheets_edit_path(time_clock) %>              
+            </td>           
+            <td>
+              <%= link_to 'Delete', time_sheets_delete_path(time_clock) %>
+            </td>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+

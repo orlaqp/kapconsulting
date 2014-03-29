@@ -20,6 +20,12 @@
     </div>
 
     <% if !@last_clock_in.blank? %>
+      <div class="row">
+        <div class="col-xs-12">
+          Comments  
+        </div>
+        
+      </div>
       <%= text_area :time_clock, :comments, :rows => 4, :class => "form-control" %>
     <% end %>
 
@@ -27,6 +33,44 @@
 
 
 </div>
+
+<%= form_for @filter, :as => "filter", :url => time_clocks_path , :method => "get", :html => { :id => 'filter-form' } do |f| %>
+ 
+  <div class="well">
+    <div class="row">
+      <div class="col-xs-5">
+         <div class="form-group">
+            <%= f.label :start_date, "From", :class => "col-sm-3 control-label" %>
+            <div class="col-sm-7">
+              <div class='input-group date datetimepicker' data-date-format="YYYY/MM/DD">            
+                  <%= f.text_field :start_date, :class => "form-control" %>
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>            
+                  </span>
+              </div>            
+            </div>
+          </div>
+      </div>
+      <div class="col-xs-5">
+         <div class="form-group">
+            <%= f.label :end_date, "To", :class => "col-sm-3 control-label" %>
+            <div class="col-sm-7">
+              <div class='input-group date datetimepicker' data-date-format="YYYY/MM/DD">            
+                  <%= f.text_field :end_date, :class => "form-control" %>
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>            
+                  </span>
+              </div>            
+            </div>
+          </div>
+      </div>
+      <div class="col-xs-2">
+        <button class="btn btn-primary">Filter</button>
+      </div>
+    </div>
+  </div>
+
+<% end %>
 
 
 <div class="table-responsive">

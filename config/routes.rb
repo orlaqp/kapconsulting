@@ -1,5 +1,7 @@
 Kapconsulting::Application.routes.draw do
-  get "documentation/index"
+
+  resources :time_sheet
+
   resources :documents
 
   resources :terms
@@ -18,5 +20,14 @@ Kapconsulting::Application.routes.draw do
   patch 'update', to: 'profiles', as: 'update_profile'
 
   get 'index', to: 'documentation', as: 'documentation'
+
+  get "documentation/index"
+
+  get "time_sheets/index"
+  get "time_sheets/edit"
+  get "time_sheets/add"
+  get "time_sheets/update"
+  get "time_sheets/delete"
+  
 
 end

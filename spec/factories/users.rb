@@ -35,6 +35,7 @@
 #  term_id                :integer
 #  time_zone              :string(255)
 #  phone_number           :string(255)
+#  rate                   :decimal(, )
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
